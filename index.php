@@ -398,7 +398,7 @@
                 Offices
               </h5>
               <p>
-                Readable content of a page when looking at its layoutreadable content of a page when looking at its layout
+                we got no offices currently :p
               </p>
             </div>
 
@@ -407,7 +407,7 @@
                 Information
               </h5>
               <p>
-                Readable content of a page when looking at its layoutreadable content of a page when looking at its layout
+              Our mission is to seamlessly connect talented freelancers with individuals and businesses seeking top-tier skills for their projects.
               </p>
             </div>
 
@@ -476,11 +476,6 @@
   </section>
 
   <!-- end info section -->
-
-  <!-- footer section -->
-
-  <!-- end  footer section -->
-
 
   <script src="js/jquery-3.4.1.min.js"></script>
   <script src="js/bootstrap.js"></script>
