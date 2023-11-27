@@ -1,12 +1,15 @@
 <?php
-if(isset($_POST['submit'])){
-    $name = $_POST('name');
-    $email = $_POST('email');
-    $password = $_POST('password');
-    session_start();
-    $_SESSION['name'] = $name;
-    $_SESSION['email'] = $email;
-    $_SESSION['passowrd'] = $password;
-    header("Location:work.php");
+$servername = "localhost";
+$db_username = "root";
+$db_password = "";
+$db_name = "freelancedb";
+
+$con = mysqli_connect($servername, $db_username, $db_password, $db_name);
+if($con->connect_error){
+    die("Connection failed: " . $conn->connect_error);
+
+}else {
+    include_once("includes/h-form.php");
+    
 }
 ?>

@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -12,7 +15,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Freelace Connect</title>
+  <title>Work - FREELANCE.CONNECT</title>
 
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
@@ -43,27 +46,24 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav  ">
               <li class="nav-item active">
-                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about.html"> About</a>
+                <a class="nav-link" href="about.php"> About</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="work.html">Work </a>
+                <a class="nav-link" href="work.php">Work </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="category.html"> Category </a>
+                <a class="nav-link" href="category.php"> Category </a>
               </li>
             </ul>
             <div class="user_option">
               <a href="">
                 <span>
-                  Login
+                  Logout
                 </span>
               </a>
-              <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
-                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
-              </form>
             </div>
           </div>
           <div>
