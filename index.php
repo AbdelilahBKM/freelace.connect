@@ -294,11 +294,11 @@ session_start();
               <div class="carousel-item active">
                 <div class="detail-box">
                   <h4>
-                    Emily W.
+                    Saad C.
                   </h4>
                   <p>
-                    I stumbled upon this platform and was blown away by the talent available. Thanks to Freelance Connect, I found the perfect developer for my project. Exceptional service and top-notch professionals!
-                  </p>
+                    idk
+                </p>
                   <img src="images/quote.png" alt="">
                 </div>
               </div>

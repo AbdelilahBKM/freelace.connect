@@ -35,6 +35,7 @@
         }
         
         if(empty($name_error) && empty($email_error) && empty($password_error) && empty($repeat_password_error) && empty($checkbox_error)){
+            
             session_start();
             $_SESSION['name'] = $name;
             $_SESSION['email'] = $email;

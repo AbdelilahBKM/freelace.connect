@@ -1,7 +1,11 @@
 <?php
     session_start();
+    include("includes/config.php");
     if(isset($_SESSION['name']) && isset($_SESSION['email']) && isset($_SESSION['password'])){
         $name = $_SESSION['name'];
+        $email = $_SESSION['email'];
+        $password = $_SESSION['password'];
+
         $phone_error = "";
         $category_error = "";
         $hourly_rate_error = "";
@@ -21,9 +25,20 @@
                 $description_error = "people need to know more about to get hired!";
             }
             if(empty($phone_error) && empty($category_error) && empty($hourly_rate_error) && empty($description_error))
-            {
-                
+            {	
+
+                $sql = "INSERT INTO freelancer (f_name, f_email, f_password, f_description, f_number, hourly_rate, category)
+                    VALUES ('$name','$email','$password','$description','$phone','$h_rate','$category');";   
+
+
+            if (mysqli_query($connection, $sql)) {
+                echo "New record created successfully";
                 header("location: work.php");
+                } else {
+                echo "Error: " . $sql . "<br>" . mysqli_error($con);
+                }
+    
+                
             }
         }
 

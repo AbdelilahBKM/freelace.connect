@@ -1,5 +1,5 @@
 <?php 
-include("config.php");
+include("includes/config.php");
 session_start();
 session_destroy();
 ?>
@@ -26,9 +26,9 @@ session_destroy();
         }
     </style>
 </head>
-<body>
+<body class="main">
 
-    <div class="main">
+    <div>
 
         <!-- Sign up form -->
         <section class="signup">
