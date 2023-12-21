@@ -76,7 +76,7 @@ session_destroy();
                             ?>
                             <div class="form-group">
                                 <input type="checkbox" name="agree-term" id="agree-term" class="agree-term"/>
-                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree to all statements in  <a href="#" class="term-service">Terms of service</a></label>
                                 <?php echo isset($_POST['sign-up']) && !empty($checkbox_error) ?
                                 "<div class='alert alert-danger' role='alert'>
                                     $checkbox_error

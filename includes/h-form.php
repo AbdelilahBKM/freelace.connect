@@ -1,4 +1,5 @@
 <?php 
+    include("includes/classes/Users.php");
     $name_error = "";
     $email_error = "";
     $password_error = "";
@@ -21,7 +22,10 @@
         }else if(empty($password)){
             $password_error = "please fill the password input!";
             
-        }else if(strlen($password) < 8){
+        }
+        else if(Users::verifyEmailExist($connection, $email)){
+            $email_error = "email already exist! please try signing in!";
+        } else if(strlen($password) < 8){
             $password_error = "password input must be atleast 8 characters!";
             
         }else if(!preg_match('/[A-Z]+/', $password) || !preg_match('/[a-z]+/', $password) || !preg_match('/[0-9]+/', $password)){
@@ -39,7 +43,7 @@
             session_start();
             $_SESSION['name'] = $name;
             $_SESSION['email'] = $email;
-            $hashd_password = password_hash($password, PASSWORD_DEFAULT);
+            $hashd_password = Users::hashPassword($password);
             $_SESSION['password'] = $hashd_password;
             header("Location: customize-profile.php");
             exit();
@@ -60,9 +64,32 @@
         }else if(empty($_POST['agree-term'])){
             $checkbox_error = "you need to agree with the terms of service in order to proceed";
 
+        }else{
+            Users::authentificateUser($connection, $email, $password);
+            $email_error = Users::$email_error;
+            $password_error = Users::$password_error;
         }
+        
         if(empty($email_error) && empty($password_error)){
-            header("Location: work.php");
+            session_start();
+            $sql = "SELECT * FROM Users where Email = '$email'";
+            $result = mysqli_query($connection, $sql);
+            if(!$result){
+                echo "Error: " . $sql . "<br>" . mysqli_error($connection);
+            }else {
+                $row = mysqli_fetch_assoc($result);
+                $userObject = new Users(
+                    $row["UserName"], 
+                    $row["Email"], 
+                    $row["UserPassword"],
+                    $row["description"],
+                    $row["PhoneNumber"],
+                    $row["Role"]
+                );
+                $_SESSION["user"] = serialize($userObject);
+                header("Location: work.php");
+            }
+            
             exit();
 
         }

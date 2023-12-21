@@ -15,7 +15,7 @@ session_start();
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Home - FREELANCE.CONNECT</title>
+  <title>Spering</title>
 
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
@@ -27,7 +27,7 @@ session_start();
   <link href="css/responsive.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class="sub_page">
   <div class="hero_area">
     <!-- header section strats -->
     <header class="header_section">
@@ -97,130 +97,7 @@ session_start();
       </div>
     </header>
     <!-- end header section -->
-    <!-- slider section -->
-    <section class="slider_section ">
-      <div class="carousel_btn-container">
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">01</li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="1">02</li>
-        </ol>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-md-5 offset-md-1">
-                  <div class="detail-box">
-                    <h1>
-                      You Can <br>
-                      Post a service <br>
-                      Here
-                    </h1>
-                    <p>
-                      Your Hub for Hiring and Finding Projects!
-                    </p>
-                    <div class="btn-box">
-                      <a href="" class="btn-1">
-                        About Us
-                      </a>
-                      <a href="signin.php" class="btn-2">
-                        START NOW!
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="offset-md-1 col-md-4 img-container">
-                  <div class="img-box">
-                    <img src="images/slider-img.png" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="carousel-item ">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-md-5 offset-md-1">
-                  <div class="detail-box">
-                    <h1>
-                      You Can <br>
-                      Hire Developers <br>
-                      Here
-                    </h1>
-                    <p>
-                      Your Hub for Hiring and Finding Projects!
-                    </p>
-                    <div class="btn-box">
-                      <a href="" class="btn-1">
-                        About Us
-                      </a>
-                      <a href="signin.php" class="btn-2">
-                        START NOW!
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="offset-md-1 col-md-4 img-container">
-                  <div class="img-box">
-                    <img src="images/slider-img.png" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </section>
-    <!-- end slider section -->
   </div>
-
-
-  <!-- experience section -->
-
-  <section class="experience_section layout_padding">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-5">
-          <div class="img-box">
-            <img src="images/experience-img.jpg" alt="">
-          </div>
-        </div>
-        <div class="col-md-7">
-          <div class="detail-box">
-            <div class="heading_container">
-              <h2>
-                Experinced Freelancer Here
-              </h2>
-            </div>
-            <p>
-              Top-tier Freelancers Ready to Elevate Your Projects! Our experience speaks volumes, delivering exceptional results every time.
-            </p>
-            <div class="btn-box">
-              <a href="" class="btn-1">
-                Read More
-              </a>
-              <a href="" class="btn-2">
-                Hire
-              </a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- end experience section -->
 
   <!-- category section -->
 
@@ -268,7 +145,7 @@ session_start();
           </div>
           <div class="detail-box">
             <h5>
-              Video Editing
+              Video Edting
             </h5>
           </div>
         </div>
@@ -295,70 +172,7 @@ session_start();
       </div>
     </div>
   </section>
-
-
   <!-- end category section -->
-
-  <!-- client section -->
-
-  <section class="client_section layout_padding">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-9 col-md-10 mx-auto">
-          <div class="heading_container">
-            <h2>
-              Testimonial
-            </h2>
-          </div>
-          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <div class="detail-box">
-                  <h4>
-                    Saad C.
-                  </h4>
-                  <p>
-                    idk
-                </p>
-                  <img src="images/quote.png" alt="">
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="detail-box">
-                  <h4>
-                    Alex J.
-                  </h4>
-                  <p>
-                    Freelance Connect is a game-changer! As a freelancer, I've never seen such a streamlined platform to showcase my skills. Within days of signing up, I landed multiple projects. Highly recommended
-                  </p>
-                  <img src="images/quote.png" alt="">
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="detail-box">
-                  <h4>
-                    Sophia M.
-                  </h4>
-                  <p>
-                    This site exceeded my expectations! I needed a designer for a short-term gig and found someone within hours of posting my project. The quality of work and the ease of communication were outstanding. Kudos to the team behind Freelance Connect!
-                  </p>
-                  <img src="images/quote.png" alt="">
-                </div>
-              </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-              <span class="sr-only">Next</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- end client section -->
 
   <!-- info section -->
 
@@ -495,13 +309,12 @@ session_start();
       </div>
     </div>
   </section>
-
   <!-- end info section -->
+
 
   <script src="js/jquery-3.4.1.min.js"></script>
   <script src="js/bootstrap.js"></script>
   <script src="js/custom.js"></script>
-
 
 </body>
 </body>

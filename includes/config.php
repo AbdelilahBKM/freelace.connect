@@ -1,5 +1,5 @@
 <?php
-include("bd.php");
+include("classes/bd.php");
 
 $instantCon = new Connection();
 

@@ -1,7 +1,7 @@
 <?php 
-include("includes/config.php");
 session_start();
 session_destroy();
+include("includes/config.php");
 ?>
 
 <!DOCTYPE html>
@@ -41,21 +41,29 @@ session_destroy();
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
                                 <input type="email" name="email" id="email" placeholder="Your Email" value="<?php echo isset($_POST['sign-in']) ? $email : '' ?>"/>
                             </div>
-                            <span class="validator">
-                                <?php echo isset($_POST['sign-in']) ? $email_error : '' ?>
-                            </span>
+                            <?php echo isset($_POST['sign-in'])  && !empty($email_error) ?
+                            "<div class='alert alert-danger' role='alert'>
+                                $email_error
+                            </div>" : ""
+                            ?>
                             <div class="form-group">
                                 <label for="pass"><i class="zmdi zmdi-lock"></i></label>
                                 <input type="password" name="password" id="pass" placeholder="Password"/>
                             </div>
-                            <span class="validator">
-                                <?php echo isset($_POST['sign-in']) ? $password_error : '' ?>
-                            </span>
+                            <?php echo isset($_POST['sign-in']) && !empty($password_error) ?
+                            "<div class='alert alert-danger' role='alert'>
+                                $password_error
+                            </div>" : ""
+                            ?>
                             <div class="form-group">
                                 <input type="checkbox" name="agree-term" id="agree-term" class="agree-term"/>
-                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree to all statements in  <a href="#" class="term-service">Terms of service</a></label>
                                 <span class="validator">
-                                    <?php echo isset($_POST['sign-in']) ? $checkbox_error : '' ?>
+                                <?php echo isset($_POST['sign-in']) && !empty($checkbox_error) ?
+                                "<div class='alert alert-danger' role='alert'>
+                                    $checkbox_error
+                                </div>" : ""
+                                ?>
                                 </span>
                             </div>
                             <div class="form-group form-button">

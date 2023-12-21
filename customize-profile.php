@@ -7,38 +7,27 @@
         $password = $_SESSION['password'];
 
         $phone_error = "";
-        $category_error = "";
-        $hourly_rate_error = "";
+        $role_error = "";
         $description_error = "";
         if(isset($_POST['finish'])){
             $phone = $_POST['tel'];
-            $category = $_POST['category'];
-            $h_rate = $_POST['h-rate'];
+            $role = $_POST['role'];
             $description = $_POST['description'];
             if(strlen($phone) < 12){
                 $phone_error = "please fill with your correct phone number";
-            }else if($category == "nothing"){
-                $category_error = "please select one of these categories!";
-            }else if(empty($h_rate)){
-                $hourly_rate_error = "please input an hourly rate if you want to get paid!";
+            }else if($role == "nothing"){
+                $role_error = "please select your role!";
             }else if(empty($description)){
-                $description_error = "people need to know more about to get hired!";
+                $description_error = "collaborators need to know more about you!";
             }
-            if(empty($phone_error) && empty($category_error) && empty($hourly_rate_error) && empty($description_error))
-            {	
-
-                $sql = "INSERT INTO freelancer (f_name, f_email, f_password, f_description, f_number, hourly_rate, category)
-                    VALUES ('$name','$email','$password','$description','$phone','$h_rate','$category');";   
-
-
-            if (mysqli_query($connection, $sql)) {
-                echo "New record created successfully";
-                header("location: work.php");
-                } else {
-                echo "Error: " . $sql . "<br>" . mysqli_error($con);
+            if(empty($phone_error) && empty($role_error) && empty($description_error))
+            {
+                $user = new Users($name, $email, $password, $description,$phone, $role);
+                if(Users::addUser($connection, $user, 'work.php')){
+                    session_unset();
+                    $_SESSION['user'] = serialize($user);
+                    header("location: work.php");
                 }
-    
-                
             }
         }
 
@@ -102,27 +91,14 @@
                                 $phone_error
                             </div>" : ""
                             ?>
-                            <select name="category" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                                <option value="nothing" selected>Choose your prefered category</option>
-                                <option value="ui-ux-designer">UI/UX designers</option>
-                                <option value="web-dev">Web Development</option>
-                                <option value="seo-marketing">SEO Markting</option>
-                                <option value="logo-designer">Logo Design</option>
-                                <option value="game-designer">Game Design</option>
+                            <select name="role" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                <option value="nothing" selected>Whate are you looking to do here?</option>
+                                <option value="Client">Client</option>
+                                <option value="Freelancer">Freelancer</option>
                             </select> 
-                            <?php echo isset($_POST['finish']) && !empty($category_error) ?
+                            <?php echo isset($_POST['finish']) && !empty($role_error) ?
                             "<div class='alert alert-danger' role='alert'>
-                                $category_error
-                            </div>" : ""
-                            ?>
-                            <div class="form-group form-outline" style="width: 22rem; font-size: 1.2rem;">
-                                <div class="form-label">choose your Hourly rate &dollar;:</div>
-                                <input min="10" max="100" name="h-rate" type="number" id="typeNumber" placeholder="between 10$ & 100$" class="form-control" 
-                                value="<?php echo isset($_POST['finish']) ? $h_rate : "" ?>"/>
-                            </div> 
-                            <?php echo isset($_POST['finish']) && !empty($hourly_rate_error) ?
-                            "<div class='alert alert-danger' role='alert'>
-                                $hourly_rate_error
+                                $role_error
                             </div>" : ""
                             ?>
                             <div class="form-group">

@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+if(isset($_SESSION["user"])){
+  $user = unserialize($_SESSION["user"]);
+  $isSignIn = true;
+}else {
+  $isSignIn = false;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,7 +40,7 @@ session_start();
     <header class="header_section">
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="index.php">
             <img src="images/logo.png" alt="" />
             <span>
               freelance.connect
@@ -59,11 +66,23 @@ session_start();
               </li>
             </ul>
             <div class="user_option">
-              <a href="">
-                <span>
-                  Logout
-                </span>
-              </a>
+            <?php 
+                if ($isSignIn) { // Check if the user is signed in
+                // If signed in, display a logout link
+                  echo "<a href='includes/logout.php'>
+                        <span>
+                            Logout
+                        </span>
+                      </a>";
+                  } else {
+                  // If not signed in, display a get started link
+                  echo "<a href='signup.php'>
+                        <span>
+                            Get started
+                        </span>
+                      </a>";
+                }
+            ?>
             </div>
           </div>
           <div>

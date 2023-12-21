@@ -15,7 +15,7 @@ session_start();
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Home - FREELANCE.CONNECT</title>
+  <title>Spering</title>
 
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
@@ -27,7 +27,7 @@ session_start();
   <link href="css/responsive.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class="sub_page">
   <div class="hero_area">
     <!-- header section strats -->
     <header class="header_section">
@@ -97,97 +97,12 @@ session_start();
       </div>
     </header>
     <!-- end header section -->
-    <!-- slider section -->
-    <section class="slider_section ">
-      <div class="carousel_btn-container">
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">01</li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="1">02</li>
-        </ol>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-md-5 offset-md-1">
-                  <div class="detail-box">
-                    <h1>
-                      You Can <br>
-                      Post a service <br>
-                      Here
-                    </h1>
-                    <p>
-                      Your Hub for Hiring and Finding Projects!
-                    </p>
-                    <div class="btn-box">
-                      <a href="" class="btn-1">
-                        About Us
-                      </a>
-                      <a href="signin.php" class="btn-2">
-                        START NOW!
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="offset-md-1 col-md-4 img-container">
-                  <div class="img-box">
-                    <img src="images/slider-img.png" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="carousel-item ">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-md-5 offset-md-1">
-                  <div class="detail-box">
-                    <h1>
-                      You Can <br>
-                      Hire Developers <br>
-                      Here
-                    </h1>
-                    <p>
-                      Your Hub for Hiring and Finding Projects!
-                    </p>
-                    <div class="btn-box">
-                      <a href="" class="btn-1">
-                        About Us
-                      </a>
-                      <a href="signin.php" class="btn-2">
-                        START NOW!
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="offset-md-1 col-md-4 img-container">
-                  <div class="img-box">
-                    <img src="images/slider-img.png" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </section>
-    <!-- end slider section -->
   </div>
 
 
   <!-- experience section -->
 
-  <section class="experience_section layout_padding">
+  <section class="experience_section layout_padding-top layout_padding2-bottom">
     <div class="container">
       <div class="row">
         <div class="col-md-5">
@@ -199,11 +114,11 @@ session_start();
           <div class="detail-box">
             <div class="heading_container">
               <h2>
-                Experinced Freelancer Here
+                Best Experinced Freelancer Here
               </h2>
             </div>
             <p>
-              Top-tier Freelancers Ready to Elevate Your Projects! Our experience speaks volumes, delivering exceptional results every time.
+              It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as
             </p>
             <div class="btn-box">
               <a href="" class="btn-1">
@@ -222,143 +137,33 @@ session_start();
 
   <!-- end experience section -->
 
-  <!-- category section -->
 
-  <section class="category_section layout_padding">
-    <div class="container">
-      <div class="heading_container">
-        <h2>
-          Category
-        </h2>
-      </div>
-      <div class="category_container">
-        <div class="box">
-          <div class="img-box">
-            <img src="images/c1.png" alt="">
-          </div>
-          <div class="detail-box">
-            <h5>
-              Design & Arts
-            </h5>
-          </div>
-        </div>
-        <div class="box">
-          <div class="img-box">
-            <img src="images/c2.png" alt="">
-          </div>
-          <div class="detail-box">
-            <h5>
-              Web Development
-            </h5>
-          </div>
-        </div>
-        <div class="box">
-          <div class="img-box">
-            <img src="images/c3.png" alt="">
-          </div>
-          <div class="detail-box">
-            <h5>
-              SEO Markting
-            </h5>
-          </div>
-        </div>
-        <div class="box">
-          <div class="img-box">
-            <img src="images/c4.png" alt="">
-          </div>
-          <div class="detail-box">
-            <h5>
-              Video Editing
-            </h5>
-          </div>
-        </div>
-        <div class="box">
-          <div class="img-box">
-            <img src="images/c5.png" alt="">
-          </div>
-          <div class="detail-box">
-            <h5>
-              Logo Design
-            </h5>
-          </div>
-        </div>
-        <div class="box">
-          <div class="img-box">
-            <img src="images/c6.png" alt="">
-          </div>
-          <div class="detail-box">
-            <h5>
-              Game Design
-            </h5>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- about section -->
 
-
-  <!-- end category section -->
-
-  <!-- client section -->
-
-  <section class="client_section layout_padding">
+  <section class="about_section layout_padding-bottom">
     <div class="container">
       <div class="row">
-        <div class="col-lg-9 col-md-10 mx-auto">
-          <div class="heading_container">
-            <h2>
-              Testimonial
-            </h2>
-          </div>
-          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <div class="detail-box">
-                  <h4>
-                    Saad C.
-                  </h4>
-                  <p>
-                    idk
-                </p>
-                  <img src="images/quote.png" alt="">
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="detail-box">
-                  <h4>
-                    Alex J.
-                  </h4>
-                  <p>
-                    Freelance Connect is a game-changer! As a freelancer, I've never seen such a streamlined platform to showcase my skills. Within days of signing up, I landed multiple projects. Highly recommended
-                  </p>
-                  <img src="images/quote.png" alt="">
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="detail-box">
-                  <h4>
-                    Sophia M.
-                  </h4>
-                  <p>
-                    This site exceeded my expectations! I needed a designer for a short-term gig and found someone within hours of posting my project. The quality of work and the ease of communication were outstanding. Kudos to the team behind Freelance Connect!
-                  </p>
-                  <img src="images/quote.png" alt="">
-                </div>
-              </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-              <span class="sr-only">Next</span>
-            </a>
+        <div class="col-md-10 col-lg-9 mx-auto">
+          <div class="img-box">
+            <img src="images/about-img.jpg" alt="">
           </div>
         </div>
+      </div>
+      <div class="detail-box">
+        <h2>
+          About Spering Company
+        </h2>
+        <p>
+          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If youThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you
+        </p>
+        <a href="">
+          Read More
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- end client section -->
+  <!-- end about section -->
 
   <!-- info section -->
 
@@ -497,6 +302,7 @@ session_start();
   </section>
 
   <!-- end info section -->
+
 
   <script src="js/jquery-3.4.1.min.js"></script>
   <script src="js/bootstrap.js"></script>
