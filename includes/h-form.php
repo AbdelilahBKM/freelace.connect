@@ -65,12 +65,12 @@
             $checkbox_error = "you need to agree with the terms of service in order to proceed";
 
         }else{
-            Users::authentificateUser($connection, $email, $password);
+            $isAuth = Users::authentificateUser($connection, $email, $password);
             $email_error = Users::$email_error;
             $password_error = Users::$password_error;
         }
         
-        if(empty($email_error) && empty($password_error)){
+        if(empty($email_error) && empty($password_error) && $isAuth){
             session_start();
             $sql = "SELECT * FROM Users where Email = '$email'";
             $result = mysqli_query($connection, $sql);
@@ -79,7 +79,7 @@
             }else {
                 $row = mysqli_fetch_assoc($result);
                 $userObject = new Users(
-                    $row["UserName"], 
+                    $row["Username"], 
                     $row["Email"], 
                     $row["UserPassword"],
                     $row["description"],

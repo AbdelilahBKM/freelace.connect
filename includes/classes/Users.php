@@ -54,16 +54,15 @@ class Users {
         $result = mysqli_query($connection, $query);
         if(mysqli_num_rows($result) == 0){
             Users::$email_error = "email doesn't exist! please try to singing up.";
-            return;
+            return false;
         }
         $row = mysqli_fetch_assoc($result);
         $crypted = $row['UserPassword'];
-        if(password_verify($password, $crypted)){
-            header("location:work.php");
-        }else {
+        if(!password_verify($password, $crypted)){
             Users::$password_error = "incorrect password!";
+            return false;
         }
-
+        return true;
     }
     public static function hashPassword($password){
         return password_hash($password, PASSWORD_DEFAULT);
@@ -79,7 +78,7 @@ class Users {
             return $row["count"] > 0;
         }
     }
-    public static function addUser($connection, $user, $location){
+    public static function addUser($connection, $user){
 
         $sql = "INSERT INTO Users (Username, Email, UserPassword, PhoneNumber, description, Role)
                 VALUES (

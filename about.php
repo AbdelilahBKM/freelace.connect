@@ -33,7 +33,7 @@ session_start();
     <header class="header_section">
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="index.php">
             <img src="images/logo.png" alt="" />
             <span>
               freelance.connect
@@ -124,7 +124,7 @@ session_start();
               <a href="" class="btn-1">
                 Read More
               </a>
-              <a href="" class="btn-2">
+              <a href="work.php" class="btn-2">
                 Hire
               </a>
             </div>
@@ -151,10 +151,18 @@ session_start();
       </div>
       <div class="detail-box">
         <h2>
-          About Spering Company
+          About Freelance.Connect
         </h2>
         <p>
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If youThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you
+        Welcome to Freelance.Connect, the dedicated platform connecting talented freelancers with individuals and businesses seeking their expertise. We're committed to fostering a collaborative environment where creativity thrives, projects excel, and connections flourish. <br>
+
+        At Freelance.Connect, our mission is simple: to bridge the gap between skilled professionals and clients, offering a seamless experience for both. Whether you're a seasoned freelancer looking for exciting projects or a client in search of top-tier skills, our platform provides the tools and resources necessary to facilitate successful collaborations. <br>
+
+        Our platform isn't just about finding work or hiring talent; it's about building meaningful connections and fostering a community of creative minds. With a user-friendly interface, secure transactions, and robust communication tools, we aim to make the process of finding work or hiring talent as straightforward and rewarding as possible. <br>
+
+        Join our vibrant community today and explore a world of opportunities, creativity, and innovation at Freelance.Connect. <br>
+
+
         </p>
         <a href="">
           Read More

@@ -33,7 +33,7 @@ session_start();
     <header class="header_section">
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="index.php">
             <img src="images/logo.png" alt="" />
             <span>
               freelance.connect
@@ -61,7 +61,7 @@ session_start();
             <div class="user_option">
             <?php 
             if (isset($_SESSION["user"])) {
-                echo "<a href='includes/logout.php'>
+                echo "<a href='logout.php'>
                         <span>
                             Logout
                         </span>
@@ -209,7 +209,7 @@ session_start();
               <a href="" class="btn-1">
                 Read More
               </a>
-              <a href="" class="btn-2">
+              <a href="work.php" class="btn-2">
                 Hire
               </a>
             </div>

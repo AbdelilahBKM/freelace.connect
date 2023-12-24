@@ -6,6 +6,7 @@
         $email = $_SESSION['email'];
         $password = $_SESSION['password'];
 
+
         $phone_error = "";
         $role_error = "";
         $description_error = "";
@@ -23,8 +24,10 @@
             if(empty($phone_error) && empty($role_error) && empty($description_error))
             {
                 $user = new Users($name, $email, $password, $description,$phone, $role);
-                if(Users::addUser($connection, $user, 'work.php')){
-                    session_unset();
+                if(Users::addUser($connection, $user)){
+                    unset($_SESSION['name']);
+                    unset($_SESSION['email']);
+                    unset($_SESSION['password']);
                     $_SESSION['user'] = serialize($user);
                     header("location: work.php");
                 }
