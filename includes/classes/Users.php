@@ -22,6 +22,25 @@ class Users {
     public function setUserName($new_name){
         $this->username = $new_name;
     }
+    public function getUserId($connection){
+        $sql = "SELECT UserID 
+        FROM Users 
+        WHERE Email = ?";
+
+        $stmt = mysqli_prepare($connection, $sql);
+        
+        mysqli_stmt_bind_param($stmt, "s", $this->email);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        
+        if(!$result){
+            die("Query error: " . mysqli_error($connection));
+        } else {
+            $row = mysqli_fetch_assoc($result);
+            return $row["UserID"];
+        }
+    }
+    
     public function getEmail(){
         return $this->email;
     }
@@ -95,6 +114,22 @@ class Users {
                 echo "Error: " . $sql . "<br>" . mysqli_error($connection);
                 return false;
             }
+    }
+    public static function getUserNameById($connection, $userId){
+        $query = "SELECT Username FROM Users WHERE UserID = ?";
+        $stmt = mysqli_prepare($connection, $query);
+    
+        mysqli_stmt_bind_param($stmt, "i", $userId);
+        mysqli_stmt_execute($stmt);
+    
+        $result = mysqli_stmt_get_result($stmt);
+    
+        if ($result && mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            return $row['Username'];
+        } else {
+            return "User not found";
+        }
     }
 
 };

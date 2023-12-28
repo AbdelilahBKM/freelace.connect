@@ -3,7 +3,7 @@ class Connection{
 private $servername = "localhost";
 private $username = "root";
 private $password = "";
-private $db_name = "freelancedb";
+private $db_name = "freelancedb2";
 public $conn;
 public function __construct(){
     // Create connection

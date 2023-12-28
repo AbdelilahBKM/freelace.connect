@@ -17,7 +17,7 @@ $PhoneError = "";
 $descriptionError = "";
 
 if(isset($_POST["cancel"])){
-    header("Location: ".$_SERVER['PHP_SELF']);
+    header("Location: work.php");
     exit();
 }
 if(isset($_POST["update"])){
@@ -194,12 +194,20 @@ if(isset($_POST["update"])){
     <!-- MAIN -->
     <?php
         if (isset($_SESSION["success_message"])) {
-            echo '<div class="mt-2 container alert alert-success" role="alert">' . $_SESSION["success_message"] . '</div>';
+            echo "
+                <div class='alert container mt-4 alert-warning alert-dismissible fade show' role='alert'>" . 
+                    $_SESSION["success_message"] . "
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+                </div>
+            ";
             unset($_SESSION["success_message"]); 
         }
+        
     ?>
     <div class="container mt-5">
-        <div class="row gutters border shadow-sm">
+        <div class="row gutters">
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 text-center">
                 <div class="card h-100">
                     <div class="card-body">

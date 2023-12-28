@@ -1,5 +1,7 @@
 <?php
-include("includes/classes/Users.php");
+include_once("includes/config.php");
+include_once("includes/classes/Users.php");
+include_once("includes/classes/Project.php");
 session_start();
 
 if (isset($_SESSION["user"])) {
@@ -9,8 +11,11 @@ if (isset($_SESSION["user"])) {
   header("location: signup.php");
 }
 $user = unserialize($_SESSION["user"]);
+$userId = $user->getUserID($connection);
 $profile = strtoupper(substr($user->getUserName(), 0, 1));
+
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -120,6 +125,30 @@ $profile = strtoupper(substr($user->getUserName(), 0, 1));
     </header>
     <!-- end header section -->
   </div>
+  <?php
+        if (isset($_SESSION["success_message"])) {
+            echo "
+                <div class='alert container mt-4 alert-success alert-dismissible fade show' role='alert'>" . 
+                    $_SESSION["success_message"] . "
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+                </div>
+            ";
+            unset($_SESSION["success_message"]); 
+        }else if(isset($_SESSION["danger_message"])) {
+          echo "
+                <div class='alert container mt-4 alert-danger alert-dismissible fade show' role='alert'>" . 
+                $_SESSION["danger_message"] . "
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+                </div>
+            ";
+            unset($_SESSION["success_message"]); 
+        }
+        
+    ?>
   <!-- MAIN -->
   <main class="container-fluid mt-4">
     <div class="row">
@@ -128,10 +157,10 @@ $profile = strtoupper(substr($user->getUserName(), 0, 1));
         <section class="border p-3">
           <div class="text-center">
             <div class="profile-picture"><?php echo $profile ?></div>
-            <div class="mt-2"><?php echo "Hello " . $user->getUserName(). "!" ?></div>
+            <div class="mt-2"><?php echo "Hello " . $user->getUserName() . "!" ?></div>
             <button type="button" class="btn btn-info btn-sm mt-2">
               <a href="account.php">
-              <div class="d-flex align-items-center text-white">
+                <div class="d-flex align-items-center text-white">
                   <span class="material-symbols-outlined">Edit</span>Edit Profile
                 </div>
               </a>
@@ -139,21 +168,29 @@ $profile = strtoupper(substr($user->getUserName(), 0, 1));
           </div>
           <hr>
           <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action">
-              username: <br>
-              <?php echo $user->getUserName() ?>
+            <a href="account.php" class="list-group-item list-group-item-action d-flex align-items-center">
+              <span class="material-symbols-outlined">
+                manage_accounts
+              </span>&nbsp;
+              account
             </a>
-            <a href="#" class="list-group-item list-group-item-action ">
-              Email: <br>
-              <?php echo $user->getEmail() ?>
+            <a href="projects.php" class="list-group-item list-group-item-action d-flex align-items-center">
+              <span class="material-symbols-outlined">
+                business_chip
+              </span>&nbsp;
+              My projects
             </a>
-            <a href="#" class="list-group-item list-group-item-action">
-              Phone: <br>
-              <?php echo $user->getPhoneNumber() ?>
+            <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+              <span class="material-symbols-outlined">
+                work_update
+              </span>&nbsp;
+              applied project
             </a>
-            <a href="#" class="list-group-item list-group-item-action">
-            Role: <br>
-            <?php echo $user->getRole() ?>
+            <a href="signup.php" class="list-group-item list-group-item-action d-flex align-items-center">
+              <span class="material-symbols-outlined">
+                group
+              </span>&nbsp;
+              Change account
             </a>
           </div>
         </section>
@@ -201,43 +238,21 @@ $profile = strtoupper(substr($user->getUserName(), 0, 1));
                   </div>
                 </form>
                 <!-- End career Filter form -->
+                <?php 
+                  
+                ?>
 
                 <!-- Cards -->
                 <div class="filter-result container">
-                  <p class="mb-30 ff-montserrat">Total Project Openings : 89</p>
+                  <p class="mb-30 ff-montserrat">Total Project Openings : <?php echo Project::getNumberOfOpenProjects($connection, $userId) ?></p>
                   <!-- Project card -->
-                  <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
-                    <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
-                      <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                        A
-                      </div>
-                      <div class="job-content">
-                        <h5 class="text-center text-md-left">
-                          Front End Developer
-                        </h5>
-                        <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
-                          <li class="mr-md-4 d-flex align-items-center justify-content-between">
-                            <span class="material-symbols-outlined">
-                              person
-                            </span>&nbsp;by Abdelilah
-                          </li>
-                          <li class="mr-md-4 d-flex align-items-center justify-content-between">
-                            <span class="material-symbols-outlined">
-                              attach_money
-                            </span>&nbsp;25/h
-                          </li>
-                          <li class="mr-md-4 d-flex align-items-center justify-content-between">
-                            <span class="material-symbols-outlined">
-                              calendar_month
-                            </span>&nbsp;from 14-01-2024 to 14-02-2024
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="job-right my-4 flex-shrink-0">
-                      <a href="#" class="btn d-block w-100 d-sm-inline-block btn-light">Apply now</a>
-                    </div>
-                  </div>
+                  <?php 
+                    $projects = Project::getAllOpenProjects($connection, $userId);
+                    foreach($projects as $project){
+                      Project::displayProjectCard($connection, $project, $userId);
+                    }
+                  
+                  ?>
                   <!-- End of project card -->
                 </div>
               </div>
