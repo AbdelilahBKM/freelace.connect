@@ -175,20 +175,20 @@ if (isset($_POST["add-project"])) {
                 <div class="mb-4 px-4">
                     <div class="small mb-3">My Projects</div>
                     <ul class="nav flex-column nav-pills">
+                        <?php
+                        $user_id = $user->getUserID($connection);
+                        $projects = Project::getUserProjects($connection, $user_id);
+                        foreach ($projects as $project) {
+                            $title = $project['Title'];
+                            $project_id = $project['ProjectID'];
+                            echo "<li class='nav-item'>
+                                    <a href='myProject.php?projectid=$project_id&title=$title' class='d-flex nav-link'>$title
+                                    <span class='ml-auto align-self-center badge badge-secondary badge-pill'>0</span></a>
+                                </li>";
+                        }
+                        ?>
                         <li class="nav-item">
-                            <a href="#" class="d-flex nav-link">Analytics Redesign
-                                <span class="ml-auto align-self-center badge badge-secondary badge-pill">0</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="d-flex nav-link">New Website
-                                <span class="ml-auto align-self-center badge badge-secondary badge-pill">0</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="d-flex nav-link">Chart for Newsletter
-                                <span class="ml-auto align-self-center badge badge-secondary badge-pill">0</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link"><i class="fa fa-fw fa-plus mr-2"></i>Add New Project</a>
+                            <a href="create-project.php" class="nav-link"><i class="fa fa-fw fa-plus mr-2"></i>Add New Project</a>
                         </li>
                     </ul>
                 </div>

@@ -68,6 +68,30 @@ class Users {
     public function comparePassword($new_password){
         return password_verify($new_password, $this->password);
     }
+    public function updateUser($connection, $newUsername,$newEmail, $newPhone, $newDesc, $newRole){
+        $sql = "UPDATE Users 
+            SET 
+            Username = ?,
+            Email = ?,
+            PhoneNumber = ?,
+            description = ?,
+            Role = ?
+            WHERE Email = ?;";
+            $stmt = $connection->prepare($sql);
+            $userEmail = $this->getEmail();
+            $stmt->bind_param("ssssss", $newUsername, $newEmail, $newPhone, $newDesc, $newRole, $userEmail);
+            if($stmt->execute()) {
+                $this->setUserName($newUsername);
+                $this->setEmail($newEmail);
+                $this->setPhoneNumber($newPhone);
+                $this->setRole($newRole);
+                $this->setDescription($newDesc);
+                return true;
+            } else {
+                echo "Error: " . $sql . "<br>" . $stmt->error;
+                return false;
+            }
+    }
     public static function authentificateUser($connection, $email, $password){
         $query = "SELECT UserPassword FROM Users WHERE Email = '$email'";
         $result = mysqli_query($connection, $query);

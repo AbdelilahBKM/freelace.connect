@@ -50,29 +50,10 @@ if(isset($_POST["update"])){
 
         }
         if(empty($name_error) && empty($email_error) && empty($phone_error) && empty($description_error)){
-            $sql = "UPDATE Users 
-            SET 
-            Username = ?,
-            Email = ?,
-            PhoneNumber = ?,
-            description = ?,
-            Role = ?
-            WHERE Email = ?;";
-            $stmt = $connection->prepare($sql);
-            $userEmail = $user->getEmail();
-            $stmt->bind_param("ssssss", $newUsername, $newEmail, $newPhone, $newDesc, $newRole, $userEmail);
-            if($stmt->execute()) {
-                $user->setUserName($newUsername);
-                $user->setEmail($newEmail);
-                $user->setPhoneNumber($newPhone);
-                $user->setRole($newRole);
-                $user->setDescription($newDesc);
+            if($user->updateUser($connection, $newUsername, $newEmail, $newPhone, $newDesc, $newRole)){
                 $_SESSION["user"] = serialize($user);
                 $_SESSION["success_message"] = "Your details has been updated successfully!";
                 header("Location: ".$_SERVER['PHP_SELF']);
-                exit();
-            } else {
-                echo "Error: " . $sql . "<br>" . $stmt->error;
             }
         }
     } else {

@@ -57,9 +57,10 @@ class Project
             return 0;
         }
     }
+    
     public static function getAllOpenProjects($connection, $userId)
     {
-        $query = "SELECT * FROM Projects WHERE Status = 'Open' AND UserID <> $userId";
+        $query = "SELECT * FROM Projects WHERE Status = 'Open' AND UserID <> $userId;";
         $result = mysqli_query($connection, $query);
 
         $projects = [];
@@ -72,9 +73,19 @@ class Project
 
         return $projects;
     }
-    public static function applyToProject($connection, $UserID, $Project)
+    public static function getUserProjects($connection, $userId){
+        $query = "SELECT * FROM projects WHERE UserID = $userId;";
+        $result = mysqli_query($connection, $query);
+        $projects = [];
+        if($result && mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $projects[] = $row;
+            }
+        }
+        return $projects;
+    }
+    public static function applyToProject($connection, $UserID, $ProjectID)
     {
-        $ProjectID = $Project['ProjectID'];
         $sql = "INSERT INTO Applications(ProjectID, UserID)
         VALUES(?, ?);";
         $stmt = mysqli_prepare($connection, $sql);
@@ -96,59 +107,38 @@ class Project
 
         return mysqli_num_rows($result) > 0;
     }
+    public static function checkIfUserApproved($connection, $userID, $projectID){
+        $sql = "SELECT * FROM projectcollaborators WHERE ProjectID = ? AND UserID = ?;";
+        $stmt = mysqli_prepare($connection, $sql);
+        mysqli_stmt_bind_param($stmt, "ii", $userID, $projectID);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
 
-
-    public static function displayProjectCard($connection, $project, $userId)
-    {
-        $title = $project['Title'];
-        $userID = $project['UserID'];
-        $budget = $project['Budget'];
-        $startDate = $project['StartDate'];
-        $endDate = $project['EndDate'];
-        $userName = Users::getUserNameById($connection, $userID);
-        $profile = strtoupper(substr($userName, 0, 1));
-        $formattedStartDate = date('M d, Y', strtotime($startDate));
-        $formattedEndDate = date('M d, Y', strtotime($endDate));
-
-        if (isset($_POST["apply-now"])) {
-            if (Project::applyToProject($connection, $userId, $project)) {
-                $_SESSION["success_message"] = "You have applied to the project!";
-                header("Location: " . $_SERVER['PHP_SELF']);
-            } else {
-                $_SESSION["danger_message"] = "Something went wrong!";
-            }
-        }
-        if(Project::checkIfUserApplied($connection, $userId, $project)){
-            
-        }
-
-        $html = "<div class='job-box d-md-flex align-items-center justify-content-between mb-30'>
-        <div class='job-left my-4 d-md-flex align-items-center flex-wrap'>
-            <div class='img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex'>
-                $profile
-            </div>
-            <h5 class='text-center text-md-left'>$title</h5>
-            <div class='job-content ml-3'>
-                <ul class='d-md-flex flex-wrap text-capitalize ff-open-sans'>
-                    <li class='mr-md-4 d-flex align-items-center justify-content-between'>
-                        <span class='material-symbols-outlined'>person</span>&nbsp;by $userName
-                    </li>
-                    <li class='mr-md-4 d-flex align-items-center justify-content-between'>
-                        <span class='material-symbols-outlined'>attach_money</span>&nbsp;$budget
-                    </li>
-                    <li class='mr-md-4 d-flex align-items-center justify-content-between'>
-                        <span class='material-symbols-outlined'>calendar_month</span>&nbsp;$formattedStartDate to $formattedEndDate
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <form method='POST' class='job-right my-4 flex-shrink-0'>
-            <input type='submit' name='apply-now' value='apply now' class='btn d-block w-100 d-sm-inline-block btn-light' />
-        </form>
-    </div>";
-
-        echo $html;
+        return mysqli_num_rows($result) > 0;
     }
+    public static function getProjectApplicants($connection, $project_id, $user_id){
+        $applicants = []; // Initialize an empty array to store results
+    
+        $sql = "SELECT u.UserID, u.Username, u.Email, u.PhoneNumber, a.ApplicationID, a.ApplicationDate
+                FROM users u, applications a
+                WHERE a.ProjectID = $project_id AND u.UserID != $user_id
+                ORDER BY a.ApplicationDate;";
+        $result = mysqli_query($connection, $sql);
+    
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $applicants[] = $row; 
+            }
+    
+            // Free result set
+            mysqli_free_result($result);
+        } else {
+            echo "Error executing the query: " . mysqli_error($connection);
+        }
+    
+        return $applicants;
+    }
+    
 
     public function getUserID()
     {

@@ -10,8 +10,14 @@ if (isset($_SESSION["user"])) {
     $isSignIn = false;
     header("location: signup.php");
 }
+if (isset($_GET['projectid'])) {
+    $project_id = $_GET['projectid'];
+} else {
+    header("location: work.php");
+}
 $user = unserialize($_SESSION["user"]);
 $profile = strtoupper(substr($user->getUserName(), 0, 1));
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -122,20 +128,7 @@ $profile = strtoupper(substr($user->getUserName(), 0, 1));
         </header>
         <!-- end header section -->
     </div>
-    <?php
-    if (isset($_SESSION["success_message"])) {
-        echo "
-                <div class='alert container mt-4 alert-warning alert-dismissible fade show' role='alert'>" .
-            $_SESSION["success_message"] . "
-                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                    <span aria-hidden='true'>&times;</span>
-                </button>
-                </div>
-            ";
-        unset($_SESSION["success_message"]);
-    }
 
-    ?>
     <!-- MAIN -->
     <main class="container-fluid px-5 mt-5">
         <div class="row">
@@ -213,74 +206,69 @@ $profile = strtoupper(substr($user->getUserName(), 0, 1));
                     </div>
                 </div>
                 <!-- end of projects header -->
-                <!-- projects card -->
-                <div class="card-columns">
-                    <div class="Card_custom-card--border_5wJKy card border border-primary shadow-sm">
-                        <div class="card-body border border-primary border-bottom-0 border-0">
-                            <span class="mb-2 badge badge-danger badge-pill">Close</span>
-                            <div class="mb-2">
-                                <a href="#" class="mr-2 h3">Project name here</a>
-                            </div>
-                            <span>Created by: admin name here <br />start date here</span>
-                        </div>
-                        <div class="card-footer">
-                            Participants:
-                        </div>
-                        <div class="card-footer d-flex">
-                            <div class="avatar-image avatar-small po" title="Alice">A</div>
-                            <div class="avatar-image avatar-small" title="John">J</div>
-                            <div class="avatar-image avatar-small" title="Bob">B</div>
-                        </div>
-                        <div class="d-flex card-footer">
-                            <span class="align-self-center">Due date here</span>
-                            <div class="align-self-center ml-auto btn-group">
-                                <button type="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-link btn-sm">
-                                    <span class="material-symbols-outlined">
-                                        settings
-                                    </span>
+                <!-- applicant table -->
+                <?php
+                if (isset($_SESSION["success_message"])) {
+                    echo "
+                                <div class='alert container mt-4 alert-success alert-dismissible fade show' role='alert'>" .
+                      $_SESSION["success_message"] . "
+                                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
                                 </button>
-                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-                                    <button type="button" tabindex="0" class="dropdown-item">
-                                        <i class="fa fa-fw fa-folder-open mr-2"></i>View
-                                    </button>
-                                    <button type="button" tabindex="0" class="dropdown-item">
-                                        <i class="fa fa-fw fa-ticket mr-2"></i>Add Task
-                                    </button>
-                                    <button type="button" tabindex="0" class="dropdown-item">
-                                        <i class="fa fa-fw fa-paperclip mr-2"></i>Add Files
-                                    </button>
-                                    <div tabindex="-1" class="dropdown-divider"></div>
-                                    <button type="button" tabindex="0" class="dropdown-item">
-                                        <i class="fa fa-fw fa-trash mr-2"></i>Delete
-                                    </button>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of projects card -->
+                            ";
+                    unset($_SESSION["success_message"]);
+                  } else if (isset($_SESSION["danger_message"])) {
+                    echo "
+                                <div class='alert container mt-4 alert-danger alert-dismissible fade show' role='alert'>" .
+                      $_SESSION["danger_message"] . "
+                                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button>
+                                </div>
+                            ";
+                    unset($_SESSION["danger_message"]);
+                  }
 
-                <!-- pagination  -->
-                <!-- <div class="d-flex justify-content-center">
-                    <nav class aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a href="#" class="page-link" aria-label="Previous"><span aria-hidden="true"><i class="fa fa-fw fa-angle-left"></i></span><span class="sr-only">Previous</span></a>
-                            </li>
-                            <li class="page-item active">
-                                <a href="#" class="page-link">1</a>
-                            </li>
-                            <li class="page-item"><a href="#" class="page-link">2</a></li>
-                            <li class="page-item"><a href="#" class="page-link">3</a></li>
-                            <li class="page-item">
-                                <a href="#" class="page-link" aria-label="Next"><span aria-hidden="true"><i class="fa fa-fw fa-angle-right"></i></span><span class="sr-only">Next</span></a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div> -->
-                <!-- end of pagination -->
+                ?>
+                <div class="container">
+                    <h2>List of Applicants</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>User Name</th>
+                                <th>Email</th>
+                                <th>Phone Number</th>
+                                <th>Application Date</th>
+                                <th>Action</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $user_id = $user->getUserID($connection);
+                            $applicants = Project::getProjectApplicants($connection, $project_id, $user_id);
+                            foreach ($applicants as $applicant) {
+                                echo "<tr>";
+                                echo "<td>" . $applicant['Username'] . "</td>";
+                                echo "<td>" . $applicant['Email'] . "</td>";
+                                echo "<td>" . $applicant['PhoneNumber'] . "</td>";
+                                echo "<td>" . $applicant['ApplicationDate'] . "</td>";
+                                echo "<td><a 
+                                href='includes/approveApplication.php?userid=" . $applicant['UserID'] .
+                                    "&appid=" . $applicant['ApplicationID'] .
+                                    "&projectid=" . $project_id . "' 
+                                class='btn btn-success'>Approve</a></td>";
+                                echo "<td><a 
+                                href='includes/removeApplication.php?id=" . $applicant['UserID'] . "&appid=" . $applicant['ApplicationID'] . "' 
+                                class='btn btn-danger'>Delete</a></td>";
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
     </main>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.js"></script>

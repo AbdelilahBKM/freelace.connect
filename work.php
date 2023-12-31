@@ -14,6 +14,8 @@ $user = unserialize($_SESSION["user"]);
 $userId = $user->getUserID($connection);
 $profile = strtoupper(substr($user->getUserName(), 0, 1));
 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -42,8 +44,11 @@ $profile = strtoupper(substr($user->getUserName(), 0, 1));
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
   <!-- icons -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
+    integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
   <style>
     .material-symbols-outlined {
       font-variation-settings:
@@ -67,7 +72,8 @@ $profile = strtoupper(substr($user->getUserName(), 0, 1));
               freelance.connect
             </span>
           </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
 
@@ -126,29 +132,29 @@ $profile = strtoupper(substr($user->getUserName(), 0, 1));
     <!-- end header section -->
   </div>
   <?php
-        if (isset($_SESSION["success_message"])) {
-            echo "
-                <div class='alert container mt-4 alert-success alert-dismissible fade show' role='alert'>" . 
-                    $_SESSION["success_message"] . "
+  if (isset($_SESSION["success_message"])) {
+    echo "
+                <div class='alert container mt-4 alert-success alert-dismissible fade show' role='alert'>" .
+      $_SESSION["success_message"] . "
                     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                     <span aria-hidden='true'>&times;</span>
                 </button>
                 </div>
             ";
-            unset($_SESSION["success_message"]); 
-        }else if(isset($_SESSION["danger_message"])) {
-          echo "
-                <div class='alert container mt-4 alert-danger alert-dismissible fade show' role='alert'>" . 
-                $_SESSION["danger_message"] . "
+    unset($_SESSION["success_message"]);
+  } else if (isset($_SESSION["danger_message"])) {
+    echo "
+                <div class='alert container mt-4 alert-danger alert-dismissible fade show' role='alert'>" .
+      $_SESSION["danger_message"] . "
                     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                     <span aria-hidden='true'>&times;</span>
                 </button>
                 </div>
             ";
-            unset($_SESSION["success_message"]); 
-        }
-        
-    ?>
+    unset($_SESSION["danger_message"]);
+  }
+
+  ?>
   <!-- MAIN -->
   <main class="container-fluid mt-4">
     <div class="row">
@@ -156,8 +162,12 @@ $profile = strtoupper(substr($user->getUserName(), 0, 1));
       <div class="col-md-2">
         <section class="border p-3">
           <div class="text-center">
-            <div class="profile-picture"><?php echo $profile ?></div>
-            <div class="mt-2"><?php echo "Hello " . $user->getUserName() . "!" ?></div>
+            <div class="profile-picture">
+              <?php echo $profile ?>
+            </div>
+            <div class="mt-2">
+              <?php echo "Hello " . $user->getUserName() . "!" ?>
+            </div>
             <button type="button" class="btn btn-info btn-sm mt-2">
               <a href="account.php">
                 <div class="d-flex align-items-center text-white">
@@ -233,25 +243,71 @@ $profile = strtoupper(substr($user->getUserName(), 0, 1));
                       </div>
                     </div>
                     <div class="col-md-6 col-lg-3 my-3">
-                      <input type="submit" value="Search" class="btn btn-lg btn-block btn-light btn-custom" id="contact-submit" />
+                      <input type="submit" value="Search" class="btn btn-lg btn-block btn-light btn-custom"
+                        id="contact-submit" />
                     </div>
                   </div>
                 </form>
                 <!-- End career Filter form -->
-                <?php 
-                  
+                <?php
+
                 ?>
 
                 <!-- Cards -->
                 <div class="filter-result container">
-                  <p class="mb-30 ff-montserrat">Total Project Openings : <?php echo Project::getNumberOfOpenProjects($connection, $userId) ?></p>
+                  <p class="mb-30 ff-montserrat">Total Project Openings :
+                    <?php echo Project::getNumberOfOpenProjects($connection, $userId) ?>
+                  </p>
                   <!-- Project card -->
-                  <?php 
-                    $projects = Project::getAllOpenProjects($connection, $userId);
-                    foreach($projects as $project){
-                      Project::displayProjectCard($connection, $project, $userId);
+                  <?php
+                  ob_start();
+                  $projects = Project::getAllOpenProjects($connection, $userId);
+                  foreach ($projects as $project) {
+                    $title = $project['Title'];
+                    $userID = $project['UserID'];
+                    $budget = $project['Budget'];
+                    $startDate = $project['StartDate'];
+                    $endDate = $project['EndDate'];
+                    $projectId = $project['ProjectID'];
+                    $userName = Users::getUserNameById($connection, $userID);
+                    $profile = strtoupper(substr($userName, 0, 1));
+                    $formattedStartDate = date('M d, Y', strtotime($startDate));
+                    $formattedEndDate = date('M d, Y', strtotime($endDate));
+                    if (Project::checkIfUserApplied($connection, $userId, $projectId)) {
+                      $apply_btn = " <div class='job-right my-4 flex-shrink-0'>
+                        <input type='submit' name='already-applied' value='Already applied' class='btn d-block w-100 d-sm-inline-block btn-light' />
+                        </div>";
+                    } else {
+                      $apply_btn = "<form method='get' action='includes/applyProject.php' class='job-right my-4 flex-shrink-0'>
+                        <input type='submit' name='apply-now' value='Apply now' class='btn d-block w-100 d-sm-inline-block btn-light' />
+                        <input type='hidden' name='project_id' value='$projectId' />
+                        <input type='hidden' name='user_id' value='$userId' />
+                      </form>";
                     }
-                  
+                    echo "<div class='job-box d-md-flex align-items-center justify-content-between mb-30'>
+                      <div class='job-left my-4 d-md-flex align-items-center flex-wrap'>
+                      <div class='img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex'>
+                      $profile
+                      </div>
+                      <h5 class='text-center text-md-left'>$title</h5>
+                      <div class='job-content ml-3'>
+                      <ul class='d-md-flex flex-wrap text-capitalize ff-open-sans'>
+                        <li class='mr-md-4 d-flex align-items-center justify-content-between'>
+                          <span class='material-symbols-outlined'>person</span>&nbsp;by $userName
+                        </li>
+                      <li class='mr-md-4 d-flex align-items-center justify-content-between'>
+                        <span class='material-symbols-outlined'>attach_money</span>&nbsp;$budget
+                      </li>
+                      <li class='mr-md-4 d-flex align-items-center justify-content-between'>
+                        <span class='material-symbols-outlined'>calendar_month</span>&nbsp;$formattedStartDate to $formattedEndDate
+                      </li>
+                      </ul>
+                      </div>
+                      </div>
+                      $apply_btn
+                      </div>";
+                  }
+                  ob_end_flush();
                   ?>
                   <!-- End of project card -->
                 </div>
