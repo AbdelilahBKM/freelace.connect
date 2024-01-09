@@ -138,7 +138,55 @@ class Project
     
         return $applicants;
     }
-    
+    static function getCollabProjects($connection, $userID) {
+        $sql = "SELECT 
+            Projects.ProjectID, 
+            Projects.Title, 
+            Projects.UserID AS ProjectOwnerID, 
+            Users.Username AS ProjectOwnerName, 
+            Projects.Status, 
+            Projects.StartDate, 
+            Projects.EndDate
+        FROM Projects
+        LEFT JOIN Applications ON Projects.ProjectID = Applications.ProjectID
+        LEFT JOIN Users ON Projects.UserID = Users.UserID
+        WHERE Applications.UserID = ? OR Projects.UserID = ?";
+
+        
+        $stmt = mysqli_prepare($connection, $sql);
+        mysqli_stmt_bind_param($stmt, "ii", $userID, $userID);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        
+        $projects = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $projects[] = $row;
+        }
+        
+        mysqli_stmt_close($stmt);
+        
+        return $projects;
+    }
+    public static function getCollabs($connection, $projectId) {
+        $query = "SELECT u.Username
+                  FROM Users u
+                  INNER JOIN projectcollaborators p ON u.UserID = p.UserID
+                  WHERE p.ProjectID = ?";
+
+        $stmt = mysqli_prepare($connection, $query);
+        mysqli_stmt_bind_param($stmt, "i", $projectId);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        $collaborators = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $collaborators[] = $row['Username'];
+        }
+
+        mysqli_stmt_close($stmt);
+
+        return $collaborators;
+    }
 
     public function getUserID()
     {

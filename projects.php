@@ -12,6 +12,9 @@ if (isset($_SESSION["user"])) {
 }
 $user = unserialize($_SESSION["user"]);
 $profile = strtoupper(substr($user->getUserName(), 0, 1));
+$userId = $user->getUserID($connection);
+$collabProjects = Project::getCollabProjects($connection, $userId);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -214,7 +217,56 @@ $profile = strtoupper(substr($user->getUserName(), 0, 1));
                 </div>
                 <!-- end of projects header -->
                 <!-- projects card -->
-                <div class="card-columns">
+                <?php
+                // Assuming $projects is an array of projects with their details fetched from the database
+                foreach ($collabProjects as $project) {
+                    $projectId = $project['ProjectID'];
+                    $projectTitle = $project['Title'];
+                    $status = $project['Status'];
+                    $startDate = $project['StartDate'];
+                    $endDate = $project['EndDate'];
+                    $creator = $project['ProjectOwnerName'];
+
+                    // Fetching collaborators for each project
+                    $collaborators = Project::getCollabs($connection, $projectId);
+
+                    // Displaying the project card
+                    echo '<div class="card-columns">
+        <div class="Card_custom-card--border_5wJKy card border border-primary shadow-sm">
+            <div class="card-body border border-primary border-bottom-0 border-0">
+                <span class="mb-2 badge badge-danger badge-pill">' . $status . '</span>
+                <div class="mb-2">
+                    <a href="#" class="mr-2 h3">' . $projectTitle . '</a>
+                </div>
+                <span>Created by: ' . $creator . '<br />' . $startDate . '</span>
+            </div>
+            <div class="card-footer">
+                Participants:
+            </div>
+            <div class="card-footer d-flex">';
+
+                    // Displaying collaborators
+                    echo '<div class="avatar-image avatar-small" title="' . $user->getUserName() . '">' . strtoupper(substr($user->getUserName(), 0, 1)) . '</div>';
+                    foreach ($collaborators as $collaborator) {
+                        echo '<div class="avatar-image avatar-small" title="' . $collaborator . '">' . strtoupper(substr($collaborator, 0, 1)) . '</div>';
+                    }
+
+                    echo '</div>
+            <div class="d-flex card-footer">
+                <span class="align-self-center">' . $endDate . '</span>
+                <div class="align-self-center ml-auto btn-group">
+                    <button type="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-link btn-sm">
+                        <span class="material-symbols-outlined">
+                            settings
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>';
+                }
+                ?>
+                <!-- <div class="card-columns">
                     <div class="Card_custom-card--border_5wJKy card border border-primary shadow-sm">
                         <div class="card-body border border-primary border-bottom-0 border-0">
                             <span class="mb-2 badge badge-danger badge-pill">Close</span>
@@ -239,25 +291,10 @@ $profile = strtoupper(substr($user->getUserName(), 0, 1));
                                         settings
                                     </span>
                                 </button>
-                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-                                    <button type="button" tabindex="0" class="dropdown-item">
-                                        <i class="fa fa-fw fa-folder-open mr-2"></i>View
-                                    </button>
-                                    <button type="button" tabindex="0" class="dropdown-item">
-                                        <i class="fa fa-fw fa-ticket mr-2"></i>Add Task
-                                    </button>
-                                    <button type="button" tabindex="0" class="dropdown-item">
-                                        <i class="fa fa-fw fa-paperclip mr-2"></i>Add Files
-                                    </button>
-                                    <div tabindex="-1" class="dropdown-divider"></div>
-                                    <button type="button" tabindex="0" class="dropdown-item">
-                                        <i class="fa fa-fw fa-trash mr-2"></i>Delete
-                                    </button>
-                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- end of projects card -->
 
                 <!-- pagination  -->
